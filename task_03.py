@@ -62,14 +62,14 @@ class CustomLogger(object):
                 fhandler.write(str(entry) + '\n')
                 handled.append(index)
         except IOError:
-            self.log('Another err.')
-        except Exception as error:
-            self.log('Encountered Error: {}'.format(error))
-            
+            self.log('Another logging err.')
+
         try:
             for index in handled[::-1]:
                 del self.msgs[index]
-        except:
+        except IOError:
             self.log('Error Msg')
+        except StandardError as error:
+            self.log('Encountered some other error: {}'.format(error))
         finally:
             fhandler.close()
