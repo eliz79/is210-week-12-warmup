@@ -43,27 +43,33 @@ class CustomLogger(object):
         """A simple login.
         Args:
             None
+
         Returns:
             None
+
         Examples:
             >>> open('somelongfilename')
         """
         handled = []
         try:
             fhandler = open(self.logfilename, 'a')
-        except:
-            raise IOError
+        except IOError as error:
+            self.log('Could not open file.')
+            raise error
+
         try:
             for index, entry in enumerate(self.msgs):
                 fhandler.write(str(entry) + '\n')
                 handled.append(index)
-        except:
-            raise IOError
+        except IOError:
+            self.log('Another err.')
+        except Exception as error:
+            self.log('Encountered Error: {}'.format(error))
+            
         try:
             for index in handled[::-1]:
                 del self.msgs[index]
-        except IOError:
-            self.log(IOError)
-            raise IOError
+        except:
+            self.log('Error Msg')
         finally:
             fhandler.close()
