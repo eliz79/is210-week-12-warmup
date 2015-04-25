@@ -7,8 +7,12 @@ import time
 
 
 class CustomLogger(object):
-    """Docstring.
-
+    """A log class.
+    Args:
+        None
+    Attribute:
+        logfilename(str): a file name for loggers.
+        msgs(list): a list of messages.
     """
 
     def __init__(self, logfilename):
